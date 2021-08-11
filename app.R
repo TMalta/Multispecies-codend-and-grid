@@ -36,7 +36,7 @@ ui <- shinyUI(
                                     h2("Grid Selectivity"),
                                     h4(id="red-heading", "Red curve"),
                                     tags$style("#red-heading{color: red;}"),
-                                    checkboxInput("GridInGear", "No grid in the trawl", value = TRUE),
+                                    checkboxInput("GridInGear", "Add grid", value = FALSE),
                                     sliderInput("BarSpacing",
                                                 "Grid's bar spacing in mm:",
                                                 min = 10,
@@ -216,7 +216,7 @@ server <-shinyServer(function(input,output, session) {
     DF.Crustacean$Prop_Codend <- (exp((log(9)/SR.codend.Crustacean)*(DF.Crustacean$Length-L50.codend.Crustacean)))/(1+(exp((log(9)/SR.codend.Crustacean)*(DF.Crustacean$Length-L50.codend.Crustacean))))
     
     
-    if(input$GridInGear==0){
+    if(input$GridInGear==1){
       DF.Roundfish$Prop_Grid<- 1-(exp((log(9)/SR.grid.Roundfish)*(DF.Roundfish$Length-L50.grid.Roundfish)))/(1+(exp((log(9)/SR.grid.Roundfish)*(DF.Roundfish$Length-L50.grid.Roundfish))))
       DF.Flatfish$Prop_Grid <- 1-(exp((log(9)/SR.grid.Flatfish)*(DF.Flatfish$Length-L50.grid.Flatfish)))/(1+(exp((log(9)/SR.grid.Flatfish)*(DF.Flatfish$Length-L50.grid.Flatfish))))
       DF.Crustacean$Prop_Grid <- 1-(exp((log(9)/SR.grid.Crustacean)*(DF.Crustacean$Length-L50.grid.Crustacean)))/(1+(exp((log(9)/SR.grid.Crustacean)*(DF.Crustacean$Length-L50.grid.Crustacean))))
@@ -247,7 +247,7 @@ server <-shinyServer(function(input,output, session) {
                            " Flatfish (L50 ",DF.l50.sr.Flatfish_codend[DF.l50.sr.Flatfish_codend$m==input$MeshSize & DF.l50.sr.Flatfish_codend$oa==input$OpeningAngle,]$l50, " SR ",  DF.l50.sr.Flatfish_codend[DF.l50.sr.Flatfish_codend$m==input$MeshSize & DF.l50.sr.Flatfish_codend$oa==input$OpeningAngle,]$sr,")   ",
                            "\n", " Crustacean (L50 ",DF.l50.sr.Crustacean_codend[DF.l50.sr.Crustacean_codend$m==input$MeshSize & DF.l50.sr.Crustacean_codend$oa==input$OpeningAngle,]$l50, " SR ",  DF.l50.sr.Crustacean_codend[DF.l50.sr.Crustacean_codend$m==input$MeshSize & DF.l50.sr.Crustacean_codend$oa==input$OpeningAngle,]$sr,")")
     
-    if(input$GridInGear==0){
+    if(input$GridInGear==1){
       ggplot(DF(), aes(x=Length, y=Prop_Grid))+
         geom_line(colour="red", size=1.5)+
         geom_line(aes(Length, Prop_Codend), colour="blue", size=1.5)+
@@ -283,7 +283,7 @@ server <-shinyServer(function(input,output, session) {
   
   output$OverallSelectivityPlot <- renderPlot({
     
-    if(input$GridInGear==0){
+    if(input$GridInGear==1){
       ggplot(DF(), aes(x=Length, y=Prop_Codend*Prop_Grid))+
         geom_line(colour="black", size=1.5)+
         labs(x="Length", y="Retention propability") +
