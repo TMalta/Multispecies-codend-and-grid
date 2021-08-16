@@ -53,7 +53,7 @@ ui <- shinyUI(
                                                 "Mesh size in codend (mm):",
                                                 min = 70,
                                                 max = 200,
-                                                value = 80,
+                                                value = 110,
                                                 step = 10),
                                     uiOutput("OAImages"),
                                     sliderInput("OpeningAngle",
@@ -91,21 +91,21 @@ ui <- shinyUI(
                                              sliderInput("PopAverageLength_Roundfish","",
                                                          min = 20,
                                                          max = 80,
-                                                         value = 30)
+                                                         value = 40)
                                              ),
                                       column(3,
                                              h4("Flatfish"),
                                              sliderInput("PopAverageLength_Flatfish","",
                                                          min = 20,
                                                          max = 70,
-                                                         value = 27)
+                                                         value = 35)
                                              ),
                                       column(3,
                                              h4("Crustacean"),
                                              sliderInput("PopAverageLength_Crustacean","",
                                                          min = 2,
                                                          max = 6,
-                                                         value = 3.5,
+                                                         value = 4.5,
                                                          step = 0.1)
                                              ),
                                     ),
@@ -118,7 +118,7 @@ ui <- shinyUI(
                                                sliderInput("PopSD_Roundfish", "",
                                                            min = 1,
                                                            max = 20,
-                                                           value = 20)
+                                                           value = 15)
                                       ),
                                       column(3,
                                              sliderInput("PopSD_Flatfish", "",
@@ -142,7 +142,7 @@ ui <- shinyUI(
                                                sliderInput("MCRS_Roundfish","",
                                                            min = 1,
                                                            max = 100,
-                                                           value = 35)
+                                                           value = 30)
                                       ),
                                       column(3,
                                              sliderInput("MCRS_Flatfish","",
@@ -522,7 +522,7 @@ server <-shinyServer(function(input,output, session) {
               label=paste0("Commercial catch: ", round(CommercialCatch_Roundfish()*100, digits = 1),"%\n"),
               gp=gpar(col="#669933",fontsize=session$clientData$output_PopulationPlot_Roundfish_width*0.025),just = "left")
     grid.text(0.08, unit(1,"npc") - unit(1.3,"line"),
-              label=paste0("\nUnwanted catch: ", round(UnwantedCatch_Roundfish()*100, digits = 1),"%\n"),
+              label=paste0("\nUndersized catch: ", round(UnwantedCatch_Roundfish()*100, digits = 1),"%\n"),
               gp=gpar(col="#FF0000",fontsize=session$clientData$output_PopulationPlot_Roundfish_width*0.025),just = "left")
     grid.text(0.08, unit(1,"npc") - unit(1.6,"line"),
               label=paste0("\nLoss of commercial catch: ", round(LossOfCommercialCatch_Roundfish()*100, digits = 1),"%"),
@@ -554,10 +554,10 @@ server <-shinyServer(function(input,output, session) {
     
     
     grid.text(0.08, unit(1,"npc") - unit(1,"line"),
-              label=paste0("Commercial catch: ", round(CommercialCatch_Flatfish()*100, digits = 1),"%\n"),
+              label=paste0("Commercial size catch: ", round(CommercialCatch_Flatfish()*100, digits = 1),"%\n"),
               gp=gpar(col="#669933",fontsize=session$clientData$output_PopulationPlot_Flatfish_width*0.025),just = "left")
     grid.text(0.08, unit(1,"npc") - unit(1.3,"line"),
-              label=paste0("\nUnwanted catch: ", round(UnwantedCatch_Flatfish()*100, digits = 1),"%\n"),
+              label=paste0("\nUndersized catch: ", round(UnwantedCatch_Flatfish()*100, digits = 1),"%\n"),
               gp=gpar(col="#FF0000",fontsize=session$clientData$output_PopulationPlot_Flatfish_width*0.025),just = "left")
     grid.text(0.08, unit(1,"npc") - unit(1.6,"line"),
               label=paste0("\nLoss of commercial catch: ", round(LossOfCommercialCatch_Flatfish()*100, digits = 1),"%"),
@@ -589,10 +589,10 @@ server <-shinyServer(function(input,output, session) {
     
     
     grid.text(0.08, unit(1,"npc") - unit(1,"line"),
-              label=paste0("Commercial catch: ", round(CommercialCatch_Crustacean()*100, digits = 1),"%\n"),
+              label=paste0("Commercial size catch: ", round(CommercialCatch_Crustacean()*100, digits = 1),"%\n"),
               gp=gpar(col="#669933",fontsize=session$clientData$output_PopulationPlot_Crustacean_width*0.025),just = "left")
     grid.text(0.08, unit(1,"npc") - unit(1.3,"line"),
-              label=paste0("\nUnwanted catch: ", round(UnwantedCatch_Crustacean()*100, digits = 1),"%\n"),
+              label=paste0("\nUndersized catch: ", round(UnwantedCatch_Crustacean()*100, digits = 1),"%\n"),
               gp=gpar(col="#FF0000",fontsize=session$clientData$output_PopulationPlot_Crustacean_width*0.025),just = "left")
     grid.text(0.08, unit(1,"npc") - unit(1.6,"line"),
               label=paste0("\nLoss of commercial catch: ", round(LossOfCommercialCatch_Crustacean()*100, digits = 1),"%"),
