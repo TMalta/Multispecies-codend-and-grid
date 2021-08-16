@@ -76,7 +76,7 @@ ui <- shinyUI(
                                     plotOutput("OverallSelectivityPlot", height = "auto")
                                   )
                          ),
-                         tabPanel("Effect on discard ratio",
+                         tabPanel("Population parameters and catch composition",
 
                                   
                                   wellPanel(
